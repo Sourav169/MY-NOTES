@@ -2,7 +2,7 @@
 showNotes();
 function addBtn() {
     let addText = document.getElementById("addText");
-    let title=document.getElementById("title");
+    let title = document.getElementById("title");
     let notes = localStorage.getItem("notes");
     if (notes == null) {
         mynotes = [];
@@ -10,14 +10,14 @@ function addBtn() {
     else {
         mynotes = JSON.parse(notes);
     }
-    let noteobj={
-        title:title.value,
-        text:addText.value
+    let noteobj = {
+        title: title.value,
+        text: addText.value
     }
     mynotes.push(noteobj);
     localStorage.setItem("notes", JSON.stringify(mynotes));
     addText.value = "";
-    title.value="";
+    title.value = "";
     console.log(mynotes);
     showNotes();
 
@@ -70,7 +70,7 @@ function deleteNote(index) {
 }
 
 
-function update(index){
+function update(index) {
     let notes = localStorage.getItem("notes");
     if (notes == null) {
         mynotes = [];
@@ -78,8 +78,25 @@ function update(index){
     else {
         mynotes = JSON.parse(notes);
     }
-    document.querySelector("#addText").value=mynotes[index].text;
-    document.querySelector("#title").value=mynotes[index].title;
+    document.querySelector("#addText").value = mynotes[index].text;
+    document.querySelector("#title").value = mynotes[index].title;
 
     deleteNote(index);
 }
+let search = document.getElementById("searchTxt");
+search.addEventListener("input", function(){
+
+    let inputVal = search.value.toLowerCase();
+   
+    let noteCards = document.getElementsByClassName('noteCard');
+    Array.from(noteCards).forEach(function(element){
+        let cardTxt = element.getElementsByTagName("p")[0].innerText;
+        if(cardTxt.includes(inputVal)){
+            element.style.display = "block";
+        }
+        else{
+            element.style.display = "none";
+        }
+        
+    })
+})
